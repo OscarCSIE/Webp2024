@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Simple Text Editor</title>
+</head>
+<body>
+<div id="container" tabindex="0" class="blockquote text-nowrap"></div>
+
+<script>
+var container = document.getElementById('container');
+
+function generateRandomChar() {
+  return String.fromCharCode(97 + Math.floor(Math.random() * 26));
+}
+
+function generateRandomString() {
+  var length = Math.floor(Math.random() * 3);
+  var result = '';
+  for (var i = 0; i < length; i++) {
+    result += generateRandomChar();
+  }
+  return result;
+}
+
+window.onload = function() {
+  container.textContent = generateRandomString();
+};
+
+window.addEventListener("keyup", function(e) {
+  var textContent = container.textContent;
+  var firstChar = textContent.charAt(0);
+
+  if (e.key === firstChar) {
+    container.textContent = textContent.substring(1);
+  }
+    var randomChars = generateRandomString();
+    container.textContent += randomChars;
+  
+});
+
+</script>
+
+</body>
+</html>
