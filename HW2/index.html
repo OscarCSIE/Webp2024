@@ -142,24 +142,20 @@
                 addNewData(dataset);
             }
         }
-
-        var originalDataset; // Add this line to store the original dataset
-
+        var originalDataset;
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
-                originalDataset = JSON.parse(this.responseText); // Store the original dataset
+                originalDataset = JSON.parse(this.responseText);
                 addNewData(originalDataset);
             }
         };
-
         function searchTitle(){
-            dataset = originalDataset.slice(); // Reset the dataset to the original dataset before each search
+            dataset = originalDataset.slice();
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("csie");
             tr = table.getElementsByTagName("tr");
-
             for(i = 0; i < tr.length; i++){
                 td = tr[i].getElementsByTagName("td")[0];
                 if(td){
@@ -178,13 +174,11 @@
                 }
             }
             addNewData(filteredData);
-        
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("csie");
             tr = table.getElementsByTagName("tr");
-
             for(i = 0; i < tr.length; i++){
                 td = tr[i].getElementsByTagName("td")[0];
                 if(td){
@@ -204,7 +198,6 @@
             }
             addNewData(filteredData);
             filteredData = dataset;
-            //trigger this function when enter is pressed
             input.addEventListener("keyup", function(event){
                 if(event.keyCode === 13){
                     event.preventDefault();
@@ -212,6 +205,5 @@
                 }
             });
         }
-
     </script>
 </html>
