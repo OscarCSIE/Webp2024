@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW_2</title>
+    <style>
+        body {
+            font-family: 標楷體;
+            margin: 20px;
+        }
+        table {
+            margin: auto;
+            font-family: 標楷體;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td,th {
+            border: 1px solid #ddd;
+            padding: 6px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #pagination {
+            margin-top: 200px;
+            font-family: 標楷體;
+            width: 50%;
+            margin: auto;
+        }
+        #pagination button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #pagination button:hover {
+            background-color: #45a049;
+        }
+        #pagination button {
+            font-family: 標楷體;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #searchInput {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>景點觀光展覽資訊</h1>
+        <input type="text" id="searchInput" onchange="searchTitle()" placeholder="請輸入查詢條件">
+        <table id="Csie" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th style="width:34%;">名稱</th>
+                    <th style="width:33%;">地點</th>
+                    <th style="width:34%;">票價</th>
+                </tr>
+            </thead>
+            <tbody id="csie">
+                <!-- Data rows will be inserted here by the JavaScript -->
+            </tbody>
+        </table>
+        <div id="pagination">
+            <button onclick="prevPage()">上一頁</button>
+            <span id="pageinfo"></span>
+            <button onclick="nextPage()">下一頁</button>
+        </div>
+    </body>
+    <script>
+        var openUrl = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", openUrl, true);
+        xhr.send();
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                var dataset = JSON.parse(this.responseText);
+                addNewData(dataset);
+            }
+        };
+        var currentPage = 1;
+        var dataPerPage = 10;
+        var dataset;
+
+        function addNewData(data){
+            dataset = data;
+            var myTable = document.getElementById("csie");
+            myTable.innerHTML = '';
+            var startIndex = (currentPage - 1) * dataPerPage;
+            var endIndex = Math.min(startIndex + dataPerPage, dataset.length);
+            for(var i = startIndex; i < endIndex; i++){
+                var row = myTable.insertRow(-1);
+                row.insertCell(0).innerHTML = dataset[i]['title'];
+                row.insertCell(1).innerHTML = dataset[i]['showInfo'][0]['location'];
+                row.insertCell(2).innerHTML = dataset[i]['showInfo'][0]['price'];
+            }
+            updatePaginationInfo();
+        }
+
+        function updatePaginationInfo(){
+            var totalPages = Math.ceil(dataset.length / dataPerPage);
+            var pageInfo = document.getElementById("pageinfo");
+            pageInfo.innerHTML = "第" + currentPage + "頁/共" + totalPages + "頁";
+        }
+
+        function prevPage(){
+            if(currentPage > 1){
+                currentPage--;
+                addNewData(dataset);
+            }
+        }
+
+        function nextPage(){
+            var totalPages = Math.ceil(dataset.length / dataPerPage);
+            if(currentPage < totalPages){
+                currentPage++;
+                addNewData(dataset);
+            }
+        }
+
+        var originalDataset; // Add this line to store the original dataset
+
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                originalDataset = JSON.parse(this.responseText); // Store the original dataset
+                addNewData(originalDataset);
+            }
+        };
+
+        function searchTitle(){
+            dataset = originalDataset.slice(); // Reset the dataset to the original dataset before each search
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("csie");
+            tr = table.getElementsByTagName("tr");
+
+            for(i = 0; i < tr.length; i++){
+                td = tr[i].getElementsByTagName("td")[0];
+                if(td){
+                    txtValue = td.textContent || td.innerText;
+                    if(txtValue.toUpperCase().indexOf(filter) > -1){
+                        tr[i].style.display = "";
+                    }else{
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            var filteredData = [];
+            for(var i = 0; i < dataset.length; i++){
+                if(dataset[i]['title'].toUpperCase().indexOf(filter) > -1){
+                    filteredData.push(dataset[i]);
+                }
+            }
+            addNewData(filteredData);
+        
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("csie");
+            tr = table.getElementsByTagName("tr");
+
+            for(i = 0; i < tr.length; i++){
+                td = tr[i].getElementsByTagName("td")[0];
+                if(td){
+                    txtValue = td.textContent || td.innerText;
+                    if(txtValue.toUpperCase().indexOf(filter) > -1){
+                        tr[i].style.display = "";
+                    }else{
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            var filteredData = [];
+            for(var i = 0; i < dataset.length; i++){
+                if(dataset[i]['title'].toUpperCase().indexOf(filter) > -1){
+                    filteredData.push(dataset[i]);
+                }
+            }
+            addNewData(filteredData);
+            filteredData = dataset;
+            //trigger this function when enter is pressed
+            input.addEventListener("keyup", function(event){
+                if(event.keyCode === 13){
+                    event.preventDefault();
+                    searchTitle();
+                }
+            });
+        }
+
+    </script>
+</html>
