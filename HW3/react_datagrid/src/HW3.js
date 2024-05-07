@@ -43,7 +43,7 @@ const HW3 = () => {
     { field: 'location', headerName: '地點', width: 500 },
     { field: 'price', headerName: '票價', width: 600 },
     ];
-
+    
     return (
     <div style={{ height: 635, width: '100%', fontFamily: '標楷體'}}>
         <input type="text" onChange={handleSearchTitle} placeholder="在名稱中查詢..."
