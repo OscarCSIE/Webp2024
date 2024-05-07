@@ -6,22 +6,24 @@ const HW3 = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-    const fetchData = async () => {
-        try {
-        const response = await fetch('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6'
-        );
-        const result = await response.json();
-        const mappedData = result.map((item) => ({
-            ...item,
-            location: item.showInfo[0]?.location,
-            price: item.showInfo[0]?.price
-        }));
-        setData(mappedData);
-        } catch (error) {
-        console.error('Error fetching data:', error);
-        }
-    };
-    fetchData();
+        const fetchData = async () => {
+            try {
+            const response = await fetch('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6'
+            );
+            const result = await response.json();
+            const mappedData = result.map((item) => (
+                {
+                ...item,
+                location: item.showInfo[0]?.location,
+                price: item.showInfo[0]?.price
+                }
+            ));
+            setData(mappedData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
     }, []);
 
     const timeoutId = useRef(null);
@@ -38,26 +40,20 @@ const HW3 = () => {
 
     const columns = [
     { field: 'title', headerName: '名稱', width: 400 },
-    { field: 'location', headerName: '地點', width: 300 },
+    { field: 'location', headerName: '地點', width: 500 },
     { field: 'price', headerName: '票價', width: 600 },
     ];
 
     return (
-    <div style={{ height: 635, width: '100%' }}>
-      {/* <h1 style={{ height: 0, textAlign: 'left', marginBottom: 15 }} >景點觀光展覽資訊</h1> */}
-        <input
-        type="text"
-        onChange={handleSearchTitle}
-        placeholder="在名稱中查詢..."
-        style={{ display: 'block', marginRight: 'auto', marginLeft: 'auto'}}
-        />
-        <DataGrid
-        rows={filtered}
-        columns={columns}
-        getRowId={(row) => row.UID}
+    <div style={{ height: 635, width: '100%', fontFamily: '標楷體'}}>
+        <input type="text" onChange={handleSearchTitle} placeholder="在名稱中查詢..."
+        style={
+            { display: 'block', marginRight: 'auto', marginLeft: 'auto', marginBottom: '15px', fontFamily: '標楷體'}
+        }/>
+        <DataGrid rows={filtered} columns={columns} getRowId={(row) => row.UID}
         initialState={{
             pagination: { paginationModel: { pageSize: 10 } },
-        }}
+        }} style={{ fontFamily: '標楷體', fontSize: '18px'}}
         pageSizeOptions={[10, 25, 50, 100]}
         />
     </div>
