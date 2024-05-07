@@ -43,22 +43,16 @@ const HW3 = () => {
     ];
 
     return (
-    <div style={{ height: 635, width: '100%' }}>
-      {/* <h1 style={{ height: 0, textAlign: 'left', marginBottom: 15 }} >景點觀光展覽資訊</h1> */}
-        <input
-        type="text"
-        onChange={handleSearchTitle}
-        placeholder="在名稱中查詢..."
-        style={{ display: 'block', marginRight: 'auto', marginLeft: 'auto'}}
-        />
+    <div style = {{ height: 635, width: '100%' }}>
+        <input type = "text" onChange = {handleSearchTitle} placeholder = "在名稱中查詢..." style = {{ display: 'block', marginRight: 'auto', marginLeft: 'auto'}} />
         <DataGrid
-        rows={filtered}
-        columns={columns}
-        getRowId={(row) => row.UID}
-        initialState={{
+        rows = {filtered}
+        columns = {columns}
+        getRowId = {(row) => row.UID}
+        initialState ={{
             pagination: { paginationModel: { pageSize: 10 } },
         }}
-        pageSizeOptions={[10, 25, 50, 100]}
+        pageSizeOptions ={[10, 25, 50, 100]}
         />
     </div>
     );
