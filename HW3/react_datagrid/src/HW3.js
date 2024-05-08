@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 const HW3 = () => {
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,6 +22,7 @@ const HW3 = () => {
             setData(mappedData);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setError('Error fetching data:' + error.toString());
             }
         };
         fetchData();
@@ -44,22 +46,27 @@ const HW3 = () => {
     { field: 'price', headerName: '票價', width: 600 },
     ];
 
+    if (error) {
+        return <div id="error message" style={{ color: 'red', fontSize: '24px', textAlign: 'center', fontFamily: '標楷體'}}>
+            {error}
+        </div>;
+    }
     return (
-    <div style={{ height: 635, width: '100%', fontFamily: '標楷體'}}>
-        <input type="text" onChange={handleSearchTitle} placeholder="在名稱中查詢..."
-        style={
-            { display: 'block', marginRight: 'auto', marginLeft: 'auto', marginBottom: '15px', fontFamily: '標楷體'}
-        }/>
-        <DataGrid rows={filtered} columns={columns} getRowId={(row) => row.UID}
-        initialState={{
-            pagination: { paginationModel: { pageSize: 10 } },
-        }} 
-        style={
-            { fontFamily: '標楷體', fontSize: '18px'}
-        }
-        pageSizeOptions={[10, 25, 50, 100]}
-        />
-    </div>
+        <div style={{ height: 635, width: '100%', fontFamily: '標楷體'}}>
+            <input type="text" onChange={handleSearchTitle} placeholder="在名稱中查詢..."
+            style={
+                { display: 'block', marginRight: 'auto', marginLeft: 'auto', marginBottom: '15px', fontFamily: '標楷體'}
+            }/>
+            <DataGrid rows={filtered} columns={columns} getRowId={(row) => row.UID}
+            initialState={{
+                pagination: { paginationModel: { pageSize: 10 } },
+            }} 
+            style={
+                { fontFamily: '標楷體', fontSize: '18px'}
+            }
+            pageSizeOptions={[10, 25, 50, 100]}
+            />
+        </div>
     );
 };
 
