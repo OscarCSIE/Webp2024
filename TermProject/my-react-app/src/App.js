@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Question from '../src/components/Question';
+import Question from './question';
 import QuestionList from '../src/QuestionList';
-import Result from '../src/components/Result';
+import Result from './Result';
 import './App.css';
 import background1 from '../src/components/backgroundAssets/background1.jpg';
 import background2 from '../src/components/backgroundAssets/background2.jpg';
@@ -16,33 +16,16 @@ import background10 from '../src/components/backgroundAssets/background10.jpg';
 import background11 from '../src/components/backgroundAssets/background11.jpg';
 
 const backgrounds = [
-  background1,
-  background2,
-  background3,
-  background4,
-  background5,
-  background6,
-  background7,
-  background8,
-  background9,
-  background10,
-  background11,
-]
+  background1,  background2,  background3,  background4,  background5,  background6,  background7,  background8,  background9,  background10,  background11,]
 
 const calculateResult = (answers) => {
   const scores = {
-    Barbarian: 0,
-    Bard: 0,
-    Cleric: 0,
-    Druid: 0,
-    Fighter: 0,
-    Monk: 0,
-    Paladin: 0,
-    Ranger: 0,
-    Rogue: 0,
-    Sorcerer: 0,
-    Warlock: 0,
-    Wizard: 0,
+    Barbarian: 0,    Bard: 0,
+    Cleric: 0,    Druid: 0,
+    Fighter: 0,    Monk: 0,
+    Paladin: 0,    Ranger: 0,
+    Rogue: 0,    Sorcerer: 0,
+    Warlock: 0,    Wizard: 0,
   };
 
   const answerMapping = {
@@ -144,3 +127,5 @@ const App = () => {
 }
 
 export default App;
+export const remainingBackgrounds = backgrounds;
+export const currentBackground = backgrounds[0];

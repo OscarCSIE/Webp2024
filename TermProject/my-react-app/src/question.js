@@ -1,8 +1,7 @@
 import React from 'react';
 import './Question.css';
 import { motion } from "framer-motion"
-import { remainingBackgrounds, currentBackground } from './App';
-
+import { remainingBackgrounds, currentBackground } from './App.js';
 
 const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onAnswer: handleAnswer, currentQuestionIndex }) => {
     const onAnswer = (answer) => {
@@ -25,7 +24,6 @@ const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onA
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -250 }}
             transition={{ duration: 1.0 }}
-            style={{ backgroundImage: `url(${currentBackground})` }}
         >
             <div>
                 <motion.h2
