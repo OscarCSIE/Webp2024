@@ -1,3 +1,48 @@
 .result-container {
     margin: 20px;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #e9f5ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.result-appear {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.result-appear-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.result-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.result-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.result-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.result-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 500ms, transform 500ms;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
 }

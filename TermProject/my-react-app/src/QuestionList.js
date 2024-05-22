@@ -1,4 +1,4 @@
-const questions = [
+const QuestionList = [
     {
         question: 'Question 1: What do you value most in life?',
         answers: [
@@ -91,4 +91,4 @@ const questions = [
     },
 ];
 
-export default questions;
+export default QuestionList;

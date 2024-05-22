@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Question from './components/Question';
 import Result from './components/Result';
-import questions from './questions';
+import QuestionList from './QuestionList';
 import './App.css';
 
 const calculateResult = (answers) => {
@@ -79,17 +79,20 @@ const calculateResult = (answers) => {
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [result, setResult] = useState(null);
 
   const handleAnswer = (answer) => {
-    setAnswers([...answers, answer]);
-    if (currentQuestionIndex < questions.length - 1) {
+    const newAnswers = [...answers, answer];
+    setAnswers(newAnswers);
+
+    if (currentQuestionIndex < QuestionList.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // All questions answered
+      // Calculate result when all questions are answered
+      const result = calculateResult(newAnswers);
+      setResult(result);
     }
   };
-
-  const result = currentQuestionIndex >= questions.length ? calculateResult(answers) : null;
 
   return (
     <div className="App">
@@ -97,8 +100,9 @@ function App() {
         <Result result={result} />
       ) : (
         <Question
-          question={questions[currentQuestionIndex]}
+          question={QuestionList[currentQuestionIndex]}
           onAnswer={handleAnswer}
+          currentQuestionIndex={currentQuestionIndex}
         />
       )}
     </div>
