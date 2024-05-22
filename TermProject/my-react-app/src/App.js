@@ -134,9 +134,7 @@ const App = () => {
   };
 
   return (
-    <motion.div 
-      className="App"
-    >
+    <motion.div className="App">
       {result ? (
         <Result result={result} />
       ) : (
