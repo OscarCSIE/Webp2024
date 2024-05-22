@@ -1,0 +1,12 @@
+.question-container {
+    margin: 20px;
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin: 5px 0;
+}
