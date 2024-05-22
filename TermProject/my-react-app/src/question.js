@@ -1,5 +1,5 @@
 import React from 'react';
-import './Question.css';
+import './question.css';
 import { motion } from "framer-motion"
 import { remainingBackgrounds, currentBackground } from './App.js';
 
@@ -29,8 +29,7 @@ const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onA
                 <motion.h2
                     initial={{scale: 0.5}}
                     animate={{scale: 1.0}}
-                    exit={{scale: 0.8}}
-                >
+                    exit={{scale: 0.8}}>
                     {question.question}
                 </motion.h2>
                 <motion.div className="answers">

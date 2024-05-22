@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import Question from './question';
 import QuestionList from '../src/QuestionList';
 import Result from './Result';
+import { motion } from "framer-motion"
+
 import './App.css';
+
 import background1 from '../src/components/backgroundAssets/background1.jpg';
 import background2 from '../src/components/backgroundAssets/background2.jpg';
 import background3 from '../src/components/backgroundAssets/background3.jpg';
@@ -16,16 +19,33 @@ import background10 from '../src/components/backgroundAssets/background10.jpg';
 import background11 from '../src/components/backgroundAssets/background11.jpg';
 
 const backgrounds = [
-  background1,  background2,  background3,  background4,  background5,  background6,  background7,  background8,  background9,  background10,  background11,]
+  background1,  
+  background2,  
+  background3,  
+  background4,  
+  background5,  
+  background6,  
+  background7,  
+  background8,  
+  background9,  
+  background10,  
+  background11
+]
 
 const calculateResult = (answers) => {
   const scores = {
-    Barbarian: 0,    Bard: 0,
-    Cleric: 0,    Druid: 0,
-    Fighter: 0,    Monk: 0,
-    Paladin: 0,    Ranger: 0,
-    Rogue: 0,    Sorcerer: 0,
-    Warlock: 0,    Wizard: 0,
+    Barbarian: 0, 
+    Bard: 0,
+    Cleric: 0, 
+    Druid: 0,
+    Fighter: 0, 
+    Monk: 0,
+    Paladin: 0, 
+    Ranger: 0,
+    Rogue: 0, 
+    Sorcerer: 0,
+    Warlock: 0, 
+    Wizard: 0,
   };
 
   const answerMapping = {
@@ -90,8 +110,15 @@ const App = () => {
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
 
-  const [currentBackground, setCurrentBackground] = useState(null);
+  const randomIndex = Math.floor(Math.random() * backgrounds.length);
+  const [currentBackground, setCurrentBackground] = useState(backgrounds[randomIndex]);
   const [remainingBackgrounds, setRemainingBackgrounds] = useState(backgrounds);
+
+  useEffect(() => {
+    document.body.style.backgroundImage = `url(${currentBackground})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+  }, [currentBackground]);
 
   const handleAnswer = (answer) => {
     const newAnswers = [...answers, answer];
@@ -107,9 +134,8 @@ const App = () => {
   };
 
   return (
-    <div 
+    <motion.div 
       className="App"
-      style={{ backgroundImage: `url(${currentBackground})`, backgroundSize: 'cover', height: '100vh' }}
     >
       {result ? (
         <Result result={result} />
@@ -122,7 +148,7 @@ const App = () => {
           currentQuestionIndex={currentQuestionIndex}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 
