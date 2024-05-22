@@ -1,8 +1,33 @@
 import React, { useState } from 'react';
-import Question from './components/Question';
-import Result from './components/Result';
-import QuestionList from './QuestionList';
+import Question from '../src/components/Question';
+import QuestionList from '../src/QuestionList';
+import Result from '../src/components/Result';
 import './App.css';
+import background1 from '../src/components/backgroundAssets/background1.jpg';
+import background2 from '../src/components/backgroundAssets/background2.jpg';
+import background3 from '../src/components/backgroundAssets/background3.jpg';
+import background4 from '../src/components/backgroundAssets/background4.jpg';
+import background5 from '../src/components/backgroundAssets/background5.jpg';
+import background6 from '../src/components/backgroundAssets/background6.jpg';
+import background7 from '../src/components/backgroundAssets/background7.jpg';
+import background8 from '../src/components/backgroundAssets/background8.jpg';
+import background9 from '../src/components/backgroundAssets/background9.jpg';
+import background10 from '../src/components/backgroundAssets/background10.jpg';
+import background11 from '../src/components/backgroundAssets/background11.jpg';
+
+const backgrounds = [
+  background1,
+  background2,
+  background3,
+  background4,
+  background5,
+  background6,
+  background7,
+  background8,
+  background9,
+  background10,
+  background11,
+]
 
 const calculateResult = (answers) => {
   const scores = {
@@ -62,6 +87,7 @@ const calculateResult = (answers) => {
     'A sacred quest to vanquish evil': 'Paladin',
     'An adventure in the untamed wilds': 'Druid',
   };
+  
 
   answers.forEach(answer => {
     const className = answerMapping[answer];
@@ -76,10 +102,13 @@ const calculateResult = (answers) => {
   return result;
 };
 
-function App() {
+const App = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
+
+  const [currentBackground, setCurrentBackground] = useState(null);
+  const [remainingBackgrounds, setRemainingBackgrounds] = useState(backgrounds);
 
   const handleAnswer = (answer) => {
     const newAnswers = [...answers, answer];
@@ -95,11 +124,16 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div 
+      className="App"
+      style={{ backgroundImage: `url(${currentBackground})`, backgroundSize: 'cover', height: '100vh' }}
+    >
       {result ? (
         <Result result={result} />
       ) : (
         <Question
+          setCurrentBackground={setCurrentBackground}
+          setRemainingBackgrounds={setRemainingBackgrounds}
           question={QuestionList[currentQuestionIndex]}
           onAnswer={handleAnswer}
           currentQuestionIndex={currentQuestionIndex}

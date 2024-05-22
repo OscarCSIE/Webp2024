@@ -1,33 +1,22 @@
 import React from 'react';
 import './Question.css';
 import { motion } from "framer-motion"
-import background1 from '../components/backgroundAssets/background1.jpg';
-import background2 from '../components/backgroundAssets/background2.jpg';
-import background3 from '../components/backgroundAssets/background3.jpg';
-import background4 from '../components/backgroundAssets/background4.jpg';
-import background5 from '../components/backgroundAssets/background5.jpg';
-import background6 from '../components/backgroundAssets/background6.jpg';
-import background7 from '../components/backgroundAssets/background7.jpg';
-import background8 from '../components/backgroundAssets/background8.jpg';
-import background9 from '../components/backgroundAssets/background9.jpg';
-import background10 from '../components/backgroundAssets/background10.jpg';
-import background11 from '../components/backgroundAssets/background11.jpg';
+import { remainingBackgrounds, currentBackground } from './App';
 
-const backgrounds = [
-    background1,
-    background2,
-    background3,
-    background4,
-    background5,
-    background6,
-    background7,
-    background8,
-    background9,
-    background10,
-    background11,
-]
 
-const Question = ({ question, onAnswer, currentQuestionIndex }) => {
+const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onAnswer: handleAnswer, currentQuestionIndex }) => {
+    const onAnswer = (answer) => {
+        handleAnswer(answer);
+        // Then, select a random background:
+        const randomIndex = Math.floor(Math.random() * remainingBackgrounds.length);
+        const newBackground = remainingBackgrounds[randomIndex];
+
+        // Update the current background:
+        setCurrentBackground(newBackground);
+
+        // Remove the selected background from the remaining ones:
+        setRemainingBackgrounds(remainingBackgrounds.filter((_, index) => index !== randomIndex));
+    };
     return (
         <motion.div
             className="question-container"
@@ -36,6 +25,7 @@ const Question = ({ question, onAnswer, currentQuestionIndex }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -250 }}
             transition={{ duration: 1.0 }}
+            style={{ backgroundImage: `url(${currentBackground})` }}
         >
             <div>
                 <motion.h2
