@@ -141,8 +141,8 @@ const App = () => {
         <Result result={result} />
       ) : (
         <Question
-          setCurrentBackground={setCurrentBackground}
-          setRemainingBackgrounds={setRemainingBackgrounds}
+          CurrentBackground={setCurrentBackground}
+          RemainingBackgrounds={setRemainingBackgrounds}
           question={QuestionList[currentQuestionIndex]}
           onAnswer={handleAnswer}
           currentQuestionIndex={currentQuestionIndex}
