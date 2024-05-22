@@ -1,7 +1,7 @@
 import React from 'react';
 import './question.css';
 import { motion } from "framer-motion"
-import { remainingBackgrounds} from './App.js';
+import { remainingBackgrounds, setRemainingBackgrounds} from './App.js';
 
 const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onAnswer: handleAnswer, currentQuestionIndex }) => {
     const onAnswer = (answer) => {
