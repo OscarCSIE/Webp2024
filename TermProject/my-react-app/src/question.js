@@ -1,5 +1,5 @@
 import React from 'react';
-import './Question.css';
+import './question.css';
 import { motion } from "framer-motion"
 import { remainingBackgrounds, setCurrentBackground} from './App.js';
 
