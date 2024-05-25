@@ -1,7 +1,7 @@
 import React from 'react';
-import './question.css';
+import './Question.css';
 import { motion } from "framer-motion"
-import { remainingBackgrounds, setRemainingBackgrounds} from './App.js';
+import { remainingBackgrounds, setCurrentBackground} from './App.js';
 
 const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onAnswer: handleAnswer, currentQuestionIndex }) => {
     const onAnswer = (answer) => {
@@ -10,11 +10,9 @@ const Question = ({ setCurrentBackground, setRemainingBackgrounds, question, onA
         const randomIndex = Math.floor(Math.random() * remainingBackgrounds.length);
         const newBackground = remainingBackgrounds[randomIndex];
 
-        // Update the current background:
+        // Update the current background and remaining backgrounds:
         setCurrentBackground(newBackground);
-
-        // Remove the selected background from the remaining ones:
-        setRemainingBackgrounds(remainingBackgrounds.filter((_, index) => index !== randomIndex));
+        setRemainingBackgrounds(remainingBackgrounds.filter(background => background !== newBackground));
     };
     return (
         <motion.div
