@@ -1,11 +1,9 @@
 import React, { useState, useEffect} from 'react';
-import Question from './question';
-import QuestionList from '../src/QuestionList';
+import Question from './question.js';
+import QuestionList from './QuestionList';
 import Result from './Result';
-import { motion } from "framer-motion"
-
+import { motion } from "framer-motion";
 import './App.css';
-
 import background1 from '../src/components/backgroundAssets/background1.jpg';
 import background2 from '../src/components/backgroundAssets/background2.jpg';
 import background3 from '../src/components/backgroundAssets/background3.jpg';
